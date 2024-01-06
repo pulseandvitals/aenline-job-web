@@ -50,7 +50,9 @@ class JobOfferController extends Controller
 
     public function show(JobOffer $jobOffer)
     {
-        //
+        return Inertia::render('User/JobOffer/Show', [
+            'view_job_offer' => JobOfferResource::make($jobOffer)
+        ]);
     }
 
     /**
@@ -74,6 +76,11 @@ class JobOfferController extends Controller
      */
     public function destroy(JobOffer $jobOffer)
     {
-        //
+        $trash = $jobOffer->delete();
+
+        if(!$trash) {
+            return abort(401);
+        }
+        return redirect()->route('job-offer.index')->with('message','Successfully deleted a job post!');
     }
 }

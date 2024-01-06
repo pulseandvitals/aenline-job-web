@@ -1,16 +1,26 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import Success from "@/Components/Alert/Success.vue";
 
 defineProps({
     job_posted: Array,
 });
+let form = useForm({});
+let deleteJobPost = (jobPost) => {
+    form.delete(route("job-offer.destroy", jobPost), {
+        onBefore: () => confirm("Do you want to delete this job post?"),
+        preserveScroll: true,
+    });
+};
 </script>
 <template>
     <Head title="Job Offer" />
 
     <AuthenticatedLayout>
+        <Success />
+
         <div class="py-12">
             <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden sm:rounded-lg">
@@ -38,18 +48,37 @@ defineProps({
                                     </div>
                                 </div>
 
-                                <div class="font-xs text-gray-400">
-                                    {{ job.tags }}
+                                <div
+                                    class="text-xs text-gray-400"
+                                    :class="[
+                                        job.is_available
+                                            ? 'bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300'
+                                            : 'bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300',
+                                    ]"
+                                >
+                                    {{
+                                        job.is_available ? "Active" : "Inactive"
+                                    }}
                                 </div>
+
+                                <div class="text-xs text-gray-400">
+                                    {{ job.applicant_count }}
+                                </div>
+
                                 <div class="text-xs text-gray-400">
                                     {{ job.created_at }}
                                 </div>
 
                                 <div class="text-gray-900 text-sm">
-                                    <Link class="font-medium text-gray-300 mr-2"
+                                    <Link
+                                        class="font-medium text-gray-300 mr-2"
+                                        :href="route('job-offer.show', job)"
                                         >View</Link
                                     >
-                                    <button class="font-xs text-gray-300 mr-2">
+                                    <button
+                                        class="font-xs text-gray-300 mr-2"
+                                        @click="deleteJobPost(job)"
+                                    >
                                         Remove
                                     </button>
                                 </div>

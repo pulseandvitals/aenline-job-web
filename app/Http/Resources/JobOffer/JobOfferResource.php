@@ -22,9 +22,11 @@ class JobOfferResource extends JsonResource
             'company_address' => $this->company_address ?? null,
             'title' => $this->title,
             'description' => $this->description,
-            'work_setup' =>  str_replace("_", ' ', $this->work_setup) ,
+            'work_setup' =>  str_replace("_", ' ', ucfirst($this->work_setup)) ,
             'tags' => explode(',', $this->tags),
+            'employment_settings' => $this->employment_settings,
             'is_available' => (bool)$this->is_available,
+            'applicant_count' => $this->applicant_count,
             'created_by' => UserResource::make($this->whenLoaded('user')),
             'created_at' => !empty($this->created_at)
                 ? $this->created_at->diffForHumans()

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('work_setup')->nullable();
             $table->text('tags')->nullable();
             $table->boolean('is_available')->default(1);
+            $table->integer('applicant_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

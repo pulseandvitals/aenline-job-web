@@ -38,5 +38,7 @@ Route::middleware('auth')->prefix('job-offer')->name('job-offer.')->group(functi
     Route::get('/', [JobOfferController::class,'index'])->name('index');
     Route::get('/create',[JobOfferController::class,'create'])->name('create');
     Route::post('/store', [JobOfferController::class,'store'])->name('store');
+    Route::delete('/destroy/{jobOffer}', [JobOfferController::class,'destroy'])->name('destroy');
+    Route::get('/view/{jobOffer}',[JobOfferController::class,'show'])->name('show');
 });
 require __DIR__.'/auth.php';
