@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\JobOffer;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,7 +22,10 @@ class JobOfferResource extends JsonResource
             'company_logo' => $this->company_logo ?? null,
             'company_address' => $this->company_address ?? null,
             'title' => $this->title,
-            'description' => $this->description,
+            'description' => [
+                'limit' => Str::limit($this->description,250),
+                'full_details' => $this->description
+            ],
             'work_setup' =>  str_replace("_", ' ', ucfirst($this->work_setup)) ,
             'tags' => explode(',', $this->tags),
             'employment_settings' => $this->employment_settings,

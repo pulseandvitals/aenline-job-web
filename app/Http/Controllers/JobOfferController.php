@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JobOffer\StoreRequest;
-use App\Http\Resources\JobOffer\JobOfferResource;
 use Inertia\Inertia;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use App\Http\Requests\JobOffer\StoreRequest;
+use App\Http\Resources\JobOffer\JobOfferResource;
 
 class JobOfferController extends Controller
 {
@@ -17,10 +18,11 @@ class JobOfferController extends Controller
     {
         $job_offer = JobOffer::query()
             ->where('user_id',auth()->id())
-            ->paginate(10);
+            ->get();
 
         return Inertia::render('User/JobOffer/Index', [
-            'job_posted' => JobOfferResource::collection($job_offer)
+            'job_posted' => JobOfferResource::collection($job_offer),
+            'job_posted_count' => $job_offer->count()
         ]);
     }
 
@@ -31,6 +33,12 @@ class JobOfferController extends Controller
 
     public function store(StoreRequest $request)
     {
+        if(!empty($request->comp_image)) {
+            $imageName = time().'.'.$request->comp_image->getClientOriginalExtension();
+            $request->comp_image->move(public_path('company_logo'), $imageName);
+            $logo_url = URL::to('company_logo/'.$imageName);
+            $request['company_logo'] = $logo_url;
+        }
         $request['user_id'] = auth()->id();
         $store = JobOffer::create(
             $request->only('company_name',

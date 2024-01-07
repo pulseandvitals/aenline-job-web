@@ -1,61 +1,64 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import JobSearchInput from "@/Components/JobSearchInput.vue";
+import UpperDesign from "./Partials/UpperDesign.vue";
+import Success from "@/Components/Alert/Success.vue";
 
 defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
+    jobList: Array,
 });
 </script>
 
 <template>
-    <Head title="Aenline Job" />
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                <h2
-                    class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
-                >
-                    Find job offers for free without login.
-                </h2>
-                <p
-                    class="font-light text-gray-500 sm:text-xl dark:text-gray-400"
-                >
-                    We use an agile approach to test assumptions and connect
-                    with the needs of your audience early and often.
-                </p>
-            </div>
-        </div>
-    </section>
+    <Head title="Welcome" />
+
+    <UpperDesign />
+
     <JobSearchInput />
+
+    <Success />
+
     <section>
-        <div class="mx-auto max-w-screen-md py-3">
+        <div
+            class="mx-auto max-w-screen-md py-3"
+            v-for="job in jobList.data"
+            :key="job.id"
+        >
             <article
                 class="p-6 bg-white rounded-lg border border-gray-200 shadow-sm"
             >
-                <div
-                    class="flex justify-between items-center mb-5 text-gray-500"
-                >
+                <div class="flex justify-between items-center text-gray-500">
+                    <div>
+                        <span
+                            class="text-xs font-medium me-2 px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-100"
+                            >{{ job.work_setup }}</span
+                        >
+                    </div>
+
+                    <span class="text-sm">{{ job.created_at }}</span>
+                </div>
+                <div>
                     <span
-                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-                        >Work From Home</span
+                        class="text-xs mr-1"
+                        v-for="tag in job.tags"
+                        :key="tag.id"
+                        :class="[
+                            tag
+                                ? 'text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-100'
+                                : '',
+                        ]"
                     >
-                    <span class="text-sm">14 days ago</span>
+                        {{ tag }}
+                    </span>
+                </div>
+                <div class="text-xs text-gray-400">
+                    <span>{{ job.employment_settings }}</span>
                 </div>
                 <div class="font-bold text-gray-600 text-lg">
-                    <span>Looking for Laravel Developer</span>
+                    <span>{{ job.title }}</span>
                 </div>
                 <div class="mb-5 text-gray-500 dark:text-gray-400">
-                    <span>
-                        Static websites are now used to bootstrap lots of
-                        websites and are becoming the basis for a variety of
-                        tools that even influence both web designers and
-                        developers influence both web designers and developers.
-                    </span>
+                    <span>{{ job.description.limit }} </span>
                 </div>
 
                 <div class="flex justify-between items-center">
@@ -65,10 +68,16 @@ defineProps({
                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
                             alt="Bonnie Green avatar"
                         />
-                        <span class="font-medium"> AU Developers</span>
+                        <span class="font-medium">
+                            {{ job.created_by.name }}</span
+                        >
                     </div>
-                    <a
-                        href="#"
+                    <Link
+                        :href="
+                            route('view-job-description', {
+                                viewJobDescription: job,
+                            })
+                        "
                         class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline"
                     >
                         Read more
@@ -84,7 +93,7 @@ defineProps({
                                 clip-rule="evenodd"
                             ></path>
                         </svg>
-                    </a>
+                    </Link>
                 </div>
             </article>
         </div>

@@ -6,6 +6,7 @@ import Success from "@/Components/Alert/Success.vue";
 
 defineProps({
     job_posted: Array,
+    job_posted_count: Array,
 });
 let form = useForm({});
 let deleteJobPost = (jobPost) => {
@@ -20,7 +21,6 @@ let deleteJobPost = (jobPost) => {
 
     <AuthenticatedLayout>
         <Success />
-
         <div class="py-12">
             <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden sm:rounded-lg">
@@ -30,9 +30,10 @@ let deleteJobPost = (jobPost) => {
                                 class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 :href="route('job-offer.create')"
                             >
-                                Post Job Offer
+                                Post Job
                             </Link>
                         </div>
+
                         <div
                             class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:bg-gray-50 active:bg-gray-100 mb-2"
                             v-for="job in job_posted.data"
@@ -82,6 +83,16 @@ let deleteJobPost = (jobPost) => {
                                         Remove
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:bg-gray-50 active:bg-gray-100 mb-2"
+                            v-if="job_posted_count <= 0"
+                        >
+                            <div
+                                class="px-6 py-4 border-b flex justify-between items-center"
+                            >
+                                You have no job posted yet.
                             </div>
                         </div>
                     </div>

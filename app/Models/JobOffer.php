@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use app\Traits\HasUuid;
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,11 +21,15 @@ class JobOffer extends Model
         'work_setup',
         'tags',
         'employment_settings',
+        'applicant_count',
         'is_available',
     ];
 
+    const INACTIVE = 0;
+    const ACTIVE = 1;
+
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

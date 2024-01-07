@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
@@ -10,13 +10,13 @@ import { nextTick, ref } from "vue";
 
 const form = useForm({
     company_name: "",
-    company_logo: "",
+    comp_image: "",
     company_address: "",
     title: "",
     description: "",
     work_setup: "",
     employment_settings: "",
-    tags: ref([]),
+    tags: "",
 });
 </script>
 
@@ -35,6 +35,7 @@ const form = useForm({
                             @submit.prevent="
                                 form.post(route('job-offer.store'))
                             "
+                            enctype="multipart/form-data"
                         >
                             <div class="">
                                 <span class="text-gray-600 font-bold">
@@ -64,7 +65,9 @@ const form = useForm({
                                     id="company_logo"
                                     type="file"
                                     class="mt-1 block w-full"
-                                    v-model="form.company_logo"
+                                    @input="
+                                        form.comp_image = $event.target.files[0]
+                                    "
                                 />
                                 <span class="text-gray-300 text-xs">
                                     Note that this is Optional. If you don't
@@ -188,7 +191,7 @@ const form = useForm({
                                     <TextInput
                                         name="tags"
                                         type="text"
-                                        class="mt-1 block w-full mr-2"
+                                        class="mt-1 block w-full"
                                         v-model="form.tags"
                                     />
                                 </div>
@@ -215,7 +218,22 @@ const form = useForm({
                                     :disabled="form.processing"
                                     >Post</PrimaryButton
                                 >
-                                <ButtonLink>Back</ButtonLink>
+                                <Link :href="route('job-offer.index')">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-6 h-6"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                                        />
+                                    </svg>
+                                </Link>
                             </div>
                         </form>
                     </div>
