@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('job_id')->foreign('id')->on('job_offers')->cascade();
+            $table->string('employer_id')->foreign('id')->on('users')->cascade();
             $table->string('file');
             $table->string('applicant_email');
             $table->text('short_message')->nullable();

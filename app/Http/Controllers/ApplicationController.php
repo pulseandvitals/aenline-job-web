@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Application\ApplicationResource;
+use Inertia\Inertia;
 use App\Models\Application;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,14 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $applications = Application::query()
+            ->with('job_description')
+            ->where('employer_id',auth()->id())
+            ->get();
+
+        return Inertia::render('User/Application/Index',[
+            'applications' => ApplicationResource::collection($applications)
+        ]);
     }
 
     /**

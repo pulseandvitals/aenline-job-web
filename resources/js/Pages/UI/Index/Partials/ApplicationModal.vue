@@ -10,11 +10,13 @@ import InputError from "@/Components/InputError.vue";
 
 const props = defineProps({
     job_id: String,
+    employer_id: String,
 });
 const applyModal = ref(false);
 const form = useForm({
     temp_file: "",
     job_id: props.job_id,
+    employer_id: props.employer_id,
     short_message: "",
     applicant_email: "",
 });

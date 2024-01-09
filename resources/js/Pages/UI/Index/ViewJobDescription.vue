@@ -38,6 +38,7 @@ let form = useForm({});
                         </Link>
                         <ApplicationModal
                             :job_id="viewJobDescription.data.id"
+                            :employer_id="viewJobDescription.data.user_id"
                         />
                     </div>
                     <div
@@ -72,7 +73,7 @@ let form = useForm({});
                         </div>
                         <div>
                             <span class="font-bold text-2xl text-gray-700">
-                                Overview
+                                Job Overview
                             </span>
                             <div class="text-gray-500">
                                 {{

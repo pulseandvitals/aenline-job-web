@@ -33,7 +33,11 @@ let deleteJobPost = (jobPost) => {
                                 Post Job
                             </Link>
                         </div>
-
+                        <div
+                            class="bg-gray-800 overflow-hidden shadow-sm hover:bg-gray-700 active:bg-gray-800 mb-2 rounded-t-lg"
+                        >
+                            &nbsp;
+                        </div>
                         <div
                             class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:bg-gray-50 active:bg-gray-100 mb-2"
                             v-for="job in job_posted.data"
@@ -42,7 +46,7 @@ let deleteJobPost = (jobPost) => {
                             <div
                                 class="px-6 py-4 border-b flex justify-between items-center"
                             >
-                                <div class="text-gray-900">
+                                <div class="text-gray-900 w-96">
                                     {{ job.title }}
                                     <div class="text-xs text-gray-400">
                                         {{ job.work_setup }}
@@ -72,12 +76,12 @@ let deleteJobPost = (jobPost) => {
 
                                 <div class="text-gray-900 text-sm">
                                     <Link
-                                        class="font-medium text-gray-300 mr-2"
+                                        class="font-medium text-gray-500 mr-2"
                                         :href="route('job-offer.show', job)"
                                         >View</Link
                                     >
                                     <button
-                                        class="font-xs text-gray-300 mr-2"
+                                        class="font-xs text-red-500 mr-2"
                                         @click="deleteJobPost(job)"
                                     >
                                         Remove

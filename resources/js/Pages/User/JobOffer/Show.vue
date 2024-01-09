@@ -91,7 +91,7 @@ let deleteJobPost = (jobOffer) => {
                             </div>
                             <div>
                                 <span class="font-bold text-2xl text-gray-700">
-                                    Overview
+                                    Job Overview
                                 </span>
                                 <div class="text-gray-500">
                                     {{

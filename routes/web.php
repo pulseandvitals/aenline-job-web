@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\JobOfferController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +34,10 @@ Route::middleware('auth')->prefix('job-offer')->name('job-offer.')->group(functi
     Route::post('/store', [JobOfferController::class,'store'])->name('store');
     Route::delete('/destroy/{jobOffer}', [JobOfferController::class,'destroy'])->name('destroy');
     Route::get('/view/{jobOffer}',[JobOfferController::class,'show'])->name('show');
+});
+
+Route::middleware('auth')->prefix('application')->name('application.')->group(function () {
+    Route::get('/', [ApplicationController::class,'index'])->name('index');
 });
 
 Route::get('/',[IndexController::class,'jobList'])->name('job-list');

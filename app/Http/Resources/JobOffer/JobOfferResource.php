@@ -18,6 +18,7 @@ class JobOfferResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'company_name' => $this->company_name ?? null,
             'company_logo' => $this->company_logo ?? null,
             'company_address' => $this->company_address ?? null,

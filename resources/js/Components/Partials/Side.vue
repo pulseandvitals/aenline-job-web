@@ -13,15 +13,15 @@ import { ref } from "vue";
     >
         <div class="h-full px-3 py-4 overflow-y-auto bg-white rounded-lg">
             <div class="flex justify-start items-center">
-                <span class="font-bold text-blue-300 text-lg">
-                    Aenline Job</span
-                >
+                <span class="font-bold text-dark-300 text-lg">
+                    Aenline Job
+                </span>
                 <ApplicationLogo class="w-10 h-10 ml-2" />
             </div>
 
             <ul class="space-y-2 font-medium mt-5">
                 <Link
-                    class="flex items-center p-2 rounded-lg text-gray-500 hover:text-white hover:bg-blue-500 group"
+                    class="flex items-center p-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-800 group"
                     :href="route('job-offer.index')"
                 >
                     <svg
@@ -44,11 +44,12 @@ import { ref } from "vue";
                         />
                     </svg>
 
-                    <span class="flex-1 ml-3 whitespace-nowrap">Job Offer</span>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Job</span>
                 </Link>
 
                 <Link
-                    class="flex items-center p-2 rounded-lg text-gray-500 hover:text-white hover:bg-blue-500 group"
+                    class="flex items-center p-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-800 group"
+                    :href="route('application.index')"
                 >
                     <svg
                         class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 d dark:text-blue-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -109,8 +110,12 @@ import { ref } from "vue";
                             </template>
 
                             <template #content>
-                                <DropdownLink :href="route('profile.edit')">
-                                    Profile
+                                <DropdownLink
+                                    :href="route('profile.edit')"
+                                    method="post"
+                                    as="button"
+                                >
+                                    Log Out
                                 </DropdownLink>
                                 <DropdownLink
                                     :href="route('logout')"

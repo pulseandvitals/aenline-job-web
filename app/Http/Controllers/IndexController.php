@@ -42,7 +42,8 @@ class IndexController extends Controller
             'file',
             'applicant_email',
             'short_message',
-            'job_id'
+            'job_id',
+            'employer_id'
         ));
         if($application) {
             $job = JobOffer::find($request['job_id']);
