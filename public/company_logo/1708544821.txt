@@ -1,0 +1,23 @@
+• Properly arrange amount and ref # of receipt
+textfield
+
+• Send defense schedule for the student and panel 
+members via email and SMS; 
+
+• Comments coming from the advisers and panels must be 
+viewable; edited copy/document can be upload.
+
+• individual submission of panel 
+member’s comments and eval form after oral 
+defense (title/outline/final). (Isa lang ka evaluation paper isubmit pero 3 ka name sa panel ang mabutang, unsaon ni ug implement?)
+
+• Send follow-up email or SMS to research 
+students who are inactive/dormant/delayed –
+example every 1 year to inactive students.
+
+• Generate report of dormant/inactive students; 
+ex: students who were stuck after 
+title/outline/final defense.
+
+---------------
+BUGS (To Follow)
